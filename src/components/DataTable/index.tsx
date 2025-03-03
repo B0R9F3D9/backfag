@@ -52,7 +52,7 @@ export function DataTable<TData>({ data, loading }: DataTableProps<TData>) {
 
 	return (
 		<div className="flex flex-col gap-4 justify-center items-center">
-			<div className="border rounded-md overflow-x-auto min-w-[40vw] md:w-full max-w-full resize-x">
+			<div className="dark:border shadow-md rounded-md overflow-x-auto min-w-[40vw] md:w-full max-w-full resize-x">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (

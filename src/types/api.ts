@@ -6,7 +6,6 @@ export interface ApiResponse<T> {
 
 export type PiderboardResponse = ApiResponse<
 	{
-		quoteSymbol: string;
 		userAlias: string;
 		volume: string;
 	}[]

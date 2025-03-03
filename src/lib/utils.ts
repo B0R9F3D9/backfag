@@ -11,14 +11,17 @@ export function transformPiderboardData(
 	data: IPiderboard[],
 	rewardPool: number,
 ): IPiderboard[] {
-	const totalVolume = data.reduce((acc, item) => acc + item.volume, 0);
+	const totalValue = data.reduce((acc, item) => acc + Math.abs(item.value), 0);
 
-	return data.map(item => ({
-		...item,
-		percent: (item.volume / totalVolume) * 100,
-		reward: rewardPool * (item.volume / totalVolume),
-	}));
+	return data
+		.map(item => ({
+			...item,
+			percent: (Math.abs(item.value) / totalValue) * 100,
+			reward: (Math.abs(item.value) / totalValue) * rewardPool,
+		}))
+		.sort((a, b) => a.rank - b.rank);
 }
+
 export function formatCurrency(value: number) {
 	return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }

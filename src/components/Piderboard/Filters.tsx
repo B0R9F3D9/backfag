@@ -4,8 +4,6 @@ import { Input } from '@/ui/input';
 interface PiderboardFiltersProps {
 	minRewardFilter: boolean;
 	setMinRewardFilter: (value: boolean) => void;
-	rewardPercentage: number;
-	setRewardPercentage: (value: number) => void;
 	search: string;
 	setSearch: (value: string) => void;
 	loading: boolean;
@@ -14,15 +12,13 @@ interface PiderboardFiltersProps {
 export function PiderboardFilters({
 	minRewardFilter,
 	setMinRewardFilter,
-	rewardPercentage,
-	setRewardPercentage,
 	search,
 	setSearch,
 	loading,
 }: PiderboardFiltersProps) {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-			<div className="flex items-center gap-2">
+		<div className="flex flex-col sm:flex-row sm:justify-center gap-4">
+			<div className="flex items-center gap-2 mx-auto sm:mx-0">
 				<Checkbox
 					id="min-reward"
 					checked={minRewardFilter}
@@ -33,25 +29,8 @@ export function PiderboardFilters({
 					Hide rewards {'<'} $1
 				</label>
 			</div>
-			<div className="flex items-center gap-2">
-				<label htmlFor="reward-percentage" className="text-sm">
-					Reward Percentage:
-				</label>
-				<Input
-					id="reward-percentage"
-					type="number"
-					className="w-16"
-					min={0}
-					max={100}
-					step={1}
-					value={rewardPercentage}
-					onChange={e => setRewardPercentage(Number(e.target.value))}
-					disabled={loading}
-				/>
-				<span className="text-sm">%</span>
-			</div>
 			<Input
-				className="w-full sm:w-auto rounded-lg"
+				className="w-full sm:w-64 rounded-lg"
 				type="search"
 				placeholder="Search by alias..."
 				disabled={loading}

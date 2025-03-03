@@ -42,7 +42,7 @@ export const columns: ColumnDef<IPiderboard>[] = [
 		cell: ({ row }) => <ColumnItem>{row.getValue('alias')}</ColumnItem>,
 	},
 	{
-		accessorKey: 'volume',
+		accessorKey: 'value',
 		header: ({ column }) => (
 			<ColumnItem>
 				<Button
@@ -50,14 +50,14 @@ export const columns: ColumnDef<IPiderboard>[] = [
 					variant="ghost"
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
-					Volume
+					Value
 					<ArrowUpDown size={14} />
 				</Button>
 			</ColumnItem>
 		),
 		cell: ({ row }) => (
 			<ColumnItem>
-				{Number(row.getValue<string>('volume')).toLocaleString('en-US', {
+				{row.getValue<number>('value').toLocaleString('en-US', {
 					style: 'currency',
 					currency: 'USD',
 				})}

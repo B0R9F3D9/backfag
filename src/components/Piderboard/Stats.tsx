@@ -3,30 +3,27 @@ import { Loader2 } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 
 interface PiderboardStatsProps {
-	questReward: number | undefined;
-	totalUsers: number;
-	totalVolume: number;
-	avgVolume: number;
-	medianVolume: number;
+	reward: number;
+	total: number;
+	avg: number;
+	median: number;
 	loading: boolean;
 }
 
 export function PiderboardStats({
-	questReward,
-	totalUsers,
-	totalVolume,
-	avgVolume,
-	medianVolume,
+	reward,
+	total,
+	avg,
+	median,
 	loading,
 }: PiderboardStatsProps) {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-5 gap-4 p-4 rounded-lg shadow-md dark:border dark:border-gray-800">
+		<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 rounded-lg shadow-md dark:border">
 			{[
-				{ label: 'Reward Pool', value: questReward ?? 0 },
-				{ label: 'Total Users', value: totalUsers },
-				{ label: 'Total Volume', value: totalVolume },
-				{ label: 'Avg Volume', value: avgVolume },
-				{ label: 'Median Volume', value: medianVolume },
+				{ label: 'Reward Pool', value: reward },
+				{ label: 'Total', value: total },
+				{ label: 'Avg', value: avg },
+				{ label: 'Median', value: median },
 			].map(stat => (
 				<div key={stat.label} className="text-center">
 					<p className="text-sm">{stat.label}</p>

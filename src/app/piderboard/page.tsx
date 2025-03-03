@@ -3,6 +3,7 @@
 import { DataTable } from '@/components/DataTable';
 import { PiderboardFilters } from '@/components/Piderboard/Filters';
 import { PiderboardStats } from '@/components/Piderboard/Stats';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { QUESTS } from '@/constants';
 import { usePiderboardData } from '@/hooks/usePiderboardData';
 import {
@@ -19,33 +20,72 @@ export default function Piderboard() {
 		loading,
 		quest,
 		setQuest,
+		metric,
+		setMetric,
 		filteredData,
 		stats,
 		minRewardFilter,
 		setMinRewardFilter,
-		rewardPercentage,
-		setRewardPercentage,
 		search,
 		setSearch,
 	} = usePiderboardData(null);
 
 	return (
 		<main className="p-6 flex justify-center">
-			<div className="w-full max-w-4xl rounded-xl shadow-lg p-6 flex flex-col gap-6 dark:border dark:border-gray-700">
-				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-					<h1 className="text-2xl font-bold">Piderboard</h1>
+			<div className="w-full max-w-4xl rounded-xl shadow-xl p-6 flex flex-col gap-6 dark:border dark:border-gray-700">
+				<h1 className="text-2xl mx-auto">
+					<span className="font-bold">Pider</span>
+					<span className="font-medium">board</span>
+				</h1>
+
+				<div className="flex flex-col sm:flex-row justify-center sm:items-center gap-4">
+					<Tabs
+						value={metric}
+						onValueChange={value => setMetric(value as 'volume' | 'pnl')}
+					>
+						<TabsList className="w-full sm:w-auto">
+							<TabsTrigger
+								disabled={
+									quest !== null &&
+									!QUESTS.find(
+										q => q.range === quest?.range && q.metric === 'volume',
+									)
+								}
+								className="cursor-pointer"
+								value="volume"
+							>
+								Volume
+							</TabsTrigger>
+							<TabsTrigger
+								disabled={
+									quest !== null &&
+									!QUESTS?.find(
+										q => q.range === quest?.range && q.metric === 'pnl',
+									)
+								}
+								className="cursor-pointer"
+								value="pnl"
+							>
+								PnL
+							</TabsTrigger>
+						</TabsList>
+					</Tabs>
 					<Select
 						onValueChange={value =>
-							setQuest(QUESTS.find(q => q.range === value) || null)
+							setQuest(
+								QUESTS.find(q => q.range === value && q.metric === metric) ||
+									null,
+							)
 						}
+						value={quest?.range}
 						disabled={loading}
 					>
-						<SelectTrigger className="w-full sm:w-48">
+						<SelectTrigger className="w-full sm:w-52">
 							<SelectValue placeholder="Select a quest" />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								{QUESTS.map(quest => (
+								{QUESTS.filter(q => q.metric === metric).map(quest => (
 									<SelectItem key={quest.range} value={quest.range}>
 										{quest.name}
 									</SelectItem>
@@ -58,19 +98,16 @@ export default function Piderboard() {
 				<PiderboardFilters
 					minRewardFilter={minRewardFilter}
 					setMinRewardFilter={setMinRewardFilter}
-					rewardPercentage={rewardPercentage}
-					setRewardPercentage={setRewardPercentage}
 					search={search}
 					setSearch={setSearch}
 					loading={loading}
 				/>
 
 				<PiderboardStats
-					questReward={(quest?.reward || 0) * (rewardPercentage / 100)}
-					totalUsers={filteredData.length}
-					totalVolume={stats.totalVolume}
-					avgVolume={stats.avgVolume}
-					medianVolume={stats.medianVolume}
+					reward={quest?.reward || 0}
+					total={stats.total}
+					avg={stats.avg}
+					median={stats.median}
 					loading={loading}
 				/>
 

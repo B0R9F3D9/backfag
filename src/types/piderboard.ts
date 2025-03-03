@@ -1,7 +1,7 @@
 export interface IPiderboard {
 	rank: number;
 	alias: string;
-	volume: number;
+	value: number;
 	percent: number;
 	reward: number;
 }
