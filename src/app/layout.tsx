@@ -23,6 +23,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
+			<meta name="apple-mobile-web-app-title" content="Backfag" />
 			<body className={montserrat.className}>
 				<ThemeProvider
 					attribute="class"

@@ -44,30 +44,21 @@ export default function Piderboard() {
 						onValueChange={value => setMetric(value as 'volume' | 'pnl')}
 					>
 						<TabsList className="w-full sm:w-auto">
-							<TabsTrigger
-								disabled={
-									quest !== null &&
-									!QUESTS.find(
-										q => q.range === quest?.range && q.metric === 'volume',
-									)
-								}
-								className="cursor-pointer"
-								value="volume"
-							>
-								Volume
-							</TabsTrigger>
-							<TabsTrigger
-								disabled={
-									quest !== null &&
-									!QUESTS?.find(
-										q => q.range === quest?.range && q.metric === 'pnl',
-									)
-								}
-								className="cursor-pointer"
-								value="pnl"
-							>
-								PnL
-							</TabsTrigger>
+							{['volume', 'pnl'].map(m => (
+								<TabsTrigger
+									key={m}
+									disabled={
+										quest !== null &&
+										!QUESTS.find(
+											q => q.range === quest?.range && q.metric === m,
+										)
+									}
+									className="cursor-pointer"
+									value={m}
+								>
+									{m.slice(0, 1).toUpperCase() + m.slice(1)}
+								</TabsTrigger>
+							))}
 						</TabsList>
 					</Tabs>
 					<Select
