@@ -55,7 +55,7 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 			: 0;
 
 		return { total, avg, median };
-	}, [data]);
+	}, [data, minRewardFilter]);
 
 	return {
 		checkPiderboard,
