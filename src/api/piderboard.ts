@@ -55,10 +55,11 @@ async function fetchPiderboard(
 export async function getPiderboard(
 	range: string,
 	metric: 'volume' | 'pnl',
+	force = false,
 ): Promise<IPiderboard[]> {
 	try {
 		const cached = localStorage.getItem(`${metric}-${range}`);
-		if (cached) {
+		if (cached && !force) {
 			const { data: cachedData, timestamp } = JSON.parse(cached);
 			if (new Date().getTime() / 1000 - Number(timestamp) < 300)
 				return cachedData;

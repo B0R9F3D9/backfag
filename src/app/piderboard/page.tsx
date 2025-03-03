@@ -1,8 +1,11 @@
 'use client';
 
+import { LuRefreshCcw } from 'react-icons/lu';
+
 import { DataTable } from '@/components/DataTable';
 import { PiderboardFilters } from '@/components/Piderboard/Filters';
 import { PiderboardStats } from '@/components/Piderboard/Stats';
+import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { QUESTS } from '@/constants';
 import { usePiderboardData } from '@/hooks/usePiderboardData';
@@ -17,6 +20,7 @@ import {
 
 export default function Piderboard() {
 	const {
+		checkPiderboard,
 		loading,
 		quest,
 		setQuest,
@@ -48,10 +52,11 @@ export default function Piderboard() {
 								<TabsTrigger
 									key={m}
 									disabled={
-										quest !== null &&
-										!QUESTS.find(
-											q => q.range === quest?.range && q.metric === m,
-										)
+										(quest !== null &&
+											!QUESTS.find(
+												q => q.range === quest?.range && q.metric === m,
+											)) ||
+										loading
 									}
 									className="cursor-pointer"
 									value={m}
@@ -84,6 +89,14 @@ export default function Piderboard() {
 							</SelectGroup>
 						</SelectContent>
 					</Select>
+					<Button
+						variant="outline"
+						size="icon"
+						disabled={loading}
+						onClick={() => checkPiderboard(true)}
+					>
+						<LuRefreshCcw />
+					</Button>
 				</div>
 
 				<PiderboardFilters

@@ -14,6 +14,28 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
 	title: 'Backfag',
 	description: 'Backfag made by b0r9f3d9',
+	openGraph: {
+		title: 'Backfag',
+		description: 'Backfag made by b0r9f3d9',
+		url: 'https://backfag.vercel.app/',
+		siteName: 'Backfag',
+		images: [
+			{
+				url: 'https://backfag.vercel.app/logo.png',
+				width: 1920,
+				height: 1080,
+				alt: 'Backfag',
+			},
+		],
+		locale: 'en_US',
+		type: 'website',
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: 'Backfag',
+		description: 'Backfag made by b0r9f3d9',
+		images: ['https://backfag.vercel.app/logo.png'],
+	},
 };
 
 export default function RootLayout({

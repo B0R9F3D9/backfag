@@ -15,16 +15,18 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 	const [minRewardFilter, setMinRewardFilter] = useState(true);
 	const [metric, setMetric] = useState(quest?.metric || 'volume');
 	const [search, setSearch] = useState('');
-	const debouncedSearch = useDebounce(search, 500);
+	const debouncedSearch = useDebounce(search, 333);
+
+	async function checkPiderboard(force = false) {
+		if (!quest) return;
+		setLoading(true);
+		const rawData = await getPiderboard(quest.range, metric, force);
+		setData(transformPiderboardData(rawData, quest.reward));
+		setLoading(false);
+	}
 
 	useEffect(() => {
-		if (!quest) return;
-		(async () => {
-			setLoading(true);
-			const rawData = await getPiderboard(quest.range, metric);
-			setData(transformPiderboardData(rawData, quest.reward));
-			setLoading(false);
-		})();
+		checkPiderboard();
 	}, [quest, metric]);
 
 	const filteredData = useMemo(() => {
@@ -41,22 +43,22 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 	}, [data, debouncedSearch, minRewardFilter, quest]);
 
 	const stats = useMemo(() => {
-		const values = filteredData.map(item => Math.abs(item.value));
+		const values = filteredData
+			.map(item => Math.abs(item.value))
+			.sort((a, b) => a - b);
 		const total = values.reduce((acc, value) => acc + value, 0);
 		const avg = filteredData.length ? total / filteredData.length : 0;
-		const sortedValues = [...values].sort((a, b) => a - b);
-		const median = sortedValues.length
-			? sortedValues.length % 2
-				? sortedValues[Math.floor(sortedValues.length / 2)]
-				: (sortedValues[sortedValues.length / 2 - 1] +
-						sortedValues[sortedValues.length / 2]) /
-					2
+		const median = values.length
+			? values.length % 2
+				? values[Math.floor(values.length / 2)]
+				: (values[values.length / 2 - 1] + values[values.length / 2]) / 2
 			: 0;
 
 		return { total, avg, median };
-	}, [filteredData]);
+	}, [data]);
 
 	return {
+		checkPiderboard,
 		loading,
 		quest,
 		setQuest,
