@@ -29,10 +29,6 @@ async function fetchPiderboard(
 	)
 		throw new Error(response.data.message || response.statusText);
 
-	const totalVolume =
-		accumulator.reduce((acc, item) => acc + item.volume, 0) +
-		response.data.data.reduce((acc, item) => acc + parseFloat(item.volume), 0);
-
 	accumulator.push(
 		...response.data.data.map((item, index) => {
 			return {
@@ -42,8 +38,8 @@ async function fetchPiderboard(
 					.map(part => part.charAt(0).toUpperCase() + part.slice(1))
 					.join('-'),
 				volume: parseFloat(item.volume),
-				percent: (parseFloat(item.volume) / totalVolume) * 100,
-				reward: quest.reward * (parseFloat(item.volume) / totalVolume),
+				percent: 0,
+				reward: 0,
 			};
 		}),
 	);

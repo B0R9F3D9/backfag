@@ -15,7 +15,6 @@ import {
 import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
-import type { IPiderboard } from '@/types/piderboard';
 import {
 	Table,
 	TableBody,
@@ -39,7 +38,7 @@ export function DataTable<TData>({ data, loading }: DataTableProps<TData>) {
 
 	const table = useReactTable({
 		data,
-		columns: columns as ColumnDef<TData, IPiderboard>[],
+		columns: columns as ColumnDef<TData>[],
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		onSortingChange: setSorting,
@@ -53,7 +52,7 @@ export function DataTable<TData>({ data, loading }: DataTableProps<TData>) {
 
 	return (
 		<div className="flex flex-col gap-4 justify-center items-center">
-			<div className="border rounded-md overflow-x-auto min-w-[49vw] max-w-[90vw] resize-x">
+			<div className="border rounded-md overflow-x-auto min-w-[40vw] md:w-full max-w-full resize-x">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (

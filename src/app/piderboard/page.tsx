@@ -1,13 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-
-import { getPiderboard } from '@/api/piderboard';
 import { DataTable } from '@/components/DataTable';
-import { Input } from '@/components/ui/input';
+import { PiderboardFilters } from '@/components/Piderboard/Filters';
+import { PiderboardStats } from '@/components/Piderboard/Stats';
 import { QUESTS } from '@/constants';
-import { useDebounce } from '@/hooks/use-debounce';
-import type { IPiderboard } from '@/types/piderboard';
+import { usePiderboardData } from '@/hooks/usePiderboardData';
 import {
 	Select,
 	SelectContent,
@@ -18,59 +15,67 @@ import {
 } from '@/ui/select';
 
 export default function Piderboard() {
-	const [loading, setLoading] = useState(false);
-	const [range, setRange] = useState('');
-	const [data, setData] = useState<IPiderboard[]>([]);
-	const [search, setSearch] = useState('');
-	const debouncedSearch = useDebounce(search, 500);
-
-	useEffect(() => {
-		if (!range) return;
-		(async () => {
-			setLoading(true);
-			setData(await getPiderboard(range));
-			setLoading(false);
-		})();
-	}, [range]);
-
-	const filteredData = useMemo(() => {
-		let result = data;
-		if (debouncedSearch)
-			result = result.filter(quest =>
-				quest.alias.toLowerCase().includes(debouncedSearch.toLowerCase()),
-			);
-		return result;
-	}, [data, debouncedSearch]);
+	const {
+		loading,
+		quest,
+		setQuest,
+		filteredData,
+		stats,
+		minRewardFilter,
+		setMinRewardFilter,
+		rewardPercentage,
+		setRewardPercentage,
+		search,
+		setSearch,
+	} = usePiderboardData(null);
 
 	return (
-		<main className="flex flex-col items-center justify-center gap-4">
-			<Select onValueChange={value => setRange(value)} disabled={loading}>
-				<SelectTrigger className="w-48">
-					<SelectValue placeholder="Select a quest" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectGroup>
-						{QUESTS.map(quest => (
-							<SelectItem key={quest.range} value={quest.range}>
-								{quest.name}
-							</SelectItem>
-						))}
-					</SelectGroup>
-				</SelectContent>
-			</Select>
+		<main className="p-6 flex justify-center">
+			<div className="w-full max-w-4xl rounded-xl shadow-lg p-6 flex flex-col gap-6 dark:border dark:border-gray-700">
+				<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+					<h1 className="text-2xl font-bold">Piderboard</h1>
+					<Select
+						onValueChange={value =>
+							setQuest(QUESTS.find(q => q.range === value) || null)
+						}
+						disabled={loading}
+					>
+						<SelectTrigger className="w-full sm:w-48">
+							<SelectValue placeholder="Select a quest" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								{QUESTS.map(quest => (
+									<SelectItem key={quest.range} value={quest.range}>
+										{quest.name}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 
-			<div className="flex justify-center">
-				<Input
-					className="rounded-md w-64"
-					type="search"
-					placeholder="Search"
-					disabled={loading}
-					value={search}
-					onChange={e => setSearch(e.target.value)}
+				<PiderboardFilters
+					minRewardFilter={minRewardFilter}
+					setMinRewardFilter={setMinRewardFilter}
+					rewardPercentage={rewardPercentage}
+					setRewardPercentage={setRewardPercentage}
+					search={search}
+					setSearch={setSearch}
+					loading={loading}
 				/>
-			</div>
 
-			<DataTable data={filteredData} loading={loading} />
+				<PiderboardStats
+					questReward={(quest?.reward || 0) * (rewardPercentage / 100)}
+					totalUsers={filteredData.length}
+					totalVolume={stats.totalVolume}
+					avgVolume={stats.avgVolume}
+					medianVolume={stats.medianVolume}
+					loading={loading}
+				/>
+
+				<DataTable data={filteredData} loading={loading} />
+			</div>
 		</main>
 	);
 }

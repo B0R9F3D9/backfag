@@ -5,11 +5,13 @@ export const QUESTS: IQuest[] = [
 		range: 'publicBetaTestCampaignTwentyThree',
 		name: 'Beta Rush Day 22',
 		reward: 25000,
+		procent: 50,
 	},
 	{
 		range: 'publicBetaTestCampaignTwentyFour',
 		name: 'Beta Rush Day 23',
 		reward: 25000,
+		procent: 50,
 	},
 	{
 		range: 'publicBetaTestCampaignTwentyFive',
