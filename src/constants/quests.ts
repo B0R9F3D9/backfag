@@ -33,4 +33,10 @@ export const QUESTS: IQuest[] = [
 		name: 'Beta Rush Day 27',
 		reward: 25000,
 	},
+	{
+		range: 'iOCampaignOne',
+		name: 'IO Trading Campaign',
+		reward: 400000 * 1.3,
+		procent: 100,
+	},
 ];

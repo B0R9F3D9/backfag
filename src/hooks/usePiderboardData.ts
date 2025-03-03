@@ -21,6 +21,7 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 
 	useEffect(() => {
 		if (!quest) return;
+		setRewardPercentage(quest.procent || 50);
 		(async () => {
 			setLoading(true);
 			const rawData = await getPiderboard(quest.range);
