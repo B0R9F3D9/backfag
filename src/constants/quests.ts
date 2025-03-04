@@ -74,9 +74,33 @@ export const QUESTS: IQuest[] = [
 		reward: 25000 * 0.5,
 	},
 	{
+		range: 'publicBetaTestCampaignTwentyNine',
+		metric: 'volume',
+		name: 'Beta Rush Day 28',
+		reward: 25000 * 0.5,
+	},
+	{
+		range: 'publicBetaTestCampaignTwentyNine',
+		metric: 'pnl',
+		name: 'Beta Rush Day 28',
+		reward: 25000 * 0.5,
+	},
+	{
 		range: 'iOCampaignOne',
 		metric: 'volume',
 		name: 'IO Trading Campaign',
 		reward: 400000 * 1.3,
+	},
+	{
+		range: 'day',
+		metric: 'volume',
+		name: '24h',
+		reward: 1,
+	},
+	{
+		range: 'week',
+		metric: 'volume',
+		name: '7d',
+		reward: 1,
 	},
 ];
