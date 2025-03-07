@@ -30,11 +30,14 @@ export default function Piderboard() {
 		setMinRewardFilter,
 		search,
 		setSearch,
-	} = usePiderboardData(null);
+	} = usePiderboardData();
 
 	return (
 		<main className="p-6 flex justify-center">
-			<div className="w-full max-w-4xl rounded-xl shadow-xl p-6 flex flex-col gap-6 dark:border dark:border-gray-700">
+			<div
+				className="w-full max-w-4xl rounded-xl shadow-xl p-6
+					flex flex-col gap-6 dark:border dark:border-gray-700"
+			>
 				<h1 className="text-2xl mx-auto">
 					<span className="font-bold">Pider</span>
 					<span className="font-medium">board</span>
@@ -43,63 +46,93 @@ export default function Piderboard() {
 				<div className="flex flex-col sm:flex-row sm:justify-center items-center gap-4">
 					<Tabs
 						value={quest?.metric || 'volume'}
-						onValueChange={value =>
+						onValueChange={metric =>
 							setQuest(
 								QUESTS.find(
-									q => q.range === quest?.range && q.metric === value,
-								) || null,
+									q => q.range === quest?.range && q.metric === metric,
+								)!,
 							)
 						}
 					>
 						<TabsList className="w-full sm:w-auto">
-							{['volume', 'pnl'].map(m => (
-								<TabsTrigger
-									key={m}
-									disabled={
-										(quest !== null &&
-											!QUESTS.find(
-												q => q.range === quest?.range && q.metric === m,
-											)) ||
-										loading
-									}
-									className="cursor-pointer"
-									value={m}
-								>
-									{m.slice(0, 1).toUpperCase() + m.slice(1)}
-								</TabsTrigger>
-							))}
+							<TabsTrigger
+								className="cursor-pointer"
+								disabled={
+									loading || !quest?.metrics?.includes('volume') || !quest
+								}
+								value="volume"
+							>
+								Volume
+							</TabsTrigger>
+							<TabsTrigger
+								className="cursor-pointer"
+								disabled={loading || !quest?.metrics?.includes('pnl') || !quest}
+								value="pnl"
+							>
+								PnL
+							</TabsTrigger>
 						</TabsList>
 					</Tabs>
+
 					<Select
-						onValueChange={value =>
+						onValueChange={name =>
 							setQuest(
-								QUESTS.find(
-									q => q.range === value && q.metric === quest?.metric,
-								) || null,
+								QUESTS.findLast(
+									q =>
+										q.name === name && q.metric === (quest?.metric || 'volume'),
+								)!,
 							)
 						}
-						value={quest?.range}
+						value={quest?.name}
 						disabled={loading}
 					>
-						<SelectTrigger className="w-full sm:w-52">
+						<SelectTrigger className="w-full sm:w-40">
 							<SelectValue placeholder="Select a quest" />
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								{QUESTS.filter(
-									q => q.metric === (quest?.metric || 'volume'),
-								).map(quest => (
-									<SelectItem key={quest.range} value={quest.range}>
-										{quest.name}
+								{Array.from(new Set(QUESTS.map(q => q.name))).map(name => (
+									<SelectItem key={name} value={name}>
+										{name}
 									</SelectItem>
 								))}
 							</SelectGroup>
 						</SelectContent>
 					</Select>
+
+					{quest?.subname && (
+						<Select
+							onValueChange={subname =>
+								setQuest(
+									QUESTS.find(
+										q => q.name === quest.name && q.subname === subname,
+									)!,
+								)
+							}
+							value={quest?.subname}
+							disabled={loading}
+						>
+							<SelectTrigger className="w-full sm:w-32">
+								<SelectValue placeholder="Select a subquest" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									{QUESTS.filter(
+										q => q.name === quest.name && q.metric === quest.metric,
+									).map(q => (
+										<SelectItem key={q.subname} value={q.subname!}>
+											{q.subname}
+										</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					)}
+
 					<Button
 						variant="outline"
 						size="icon"
-						disabled={loading}
+						disabled={loading || !quest}
 						onClick={() => checkPiderboard(true)}
 					>
 						<LuRefreshCcw />

@@ -8,9 +8,9 @@ import { transformPiderboardData } from '@/lib/utils';
 import type { IPiderboard } from '@/types/piderboard';
 import type { IQuest } from '@/types/quest';
 
-export function usePiderboardData(initialQuest: IQuest | null) {
+export function usePiderboardData() {
 	const [loading, setLoading] = useState(false);
-	const [quest, setQuest] = useState<IQuest | null>(initialQuest);
+	const [quest, setQuest] = useState<IQuest | null>(null);
 	const [data, setData] = useState<IPiderboard[]>([]);
 	const [minRewardFilter, setMinRewardFilter] = useState(true);
 	const [search, setSearch] = useState('');
