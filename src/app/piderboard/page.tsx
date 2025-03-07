@@ -40,7 +40,7 @@ export default function Piderboard() {
 					<span className="font-medium">board</span>
 				</h1>
 
-				<div className="flex flex-col sm:flex-row justify-center sm:items-center gap-4">
+				<div className="flex flex-col sm:flex-row sm:justify-center items-center gap-4">
 					<Tabs
 						value={quest?.metric || 'volume'}
 						onValueChange={value =>
@@ -86,7 +86,9 @@ export default function Piderboard() {
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								{QUESTS.filter(q => q.metric === quest?.metric).map(quest => (
+								{QUESTS.filter(
+									q => q.metric === (quest?.metric || 'volume'),
+								).map(quest => (
 									<SelectItem key={quest.range} value={quest.range}>
 										{quest.name}
 									</SelectItem>
