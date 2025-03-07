@@ -13,21 +13,20 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 	const [quest, setQuest] = useState<IQuest | null>(initialQuest);
 	const [data, setData] = useState<IPiderboard[]>([]);
 	const [minRewardFilter, setMinRewardFilter] = useState(true);
-	const [metric, setMetric] = useState(quest?.metric || 'volume');
 	const [search, setSearch] = useState('');
 	const debouncedSearch = useDebounce(search, 333);
 
 	async function checkPiderboard(force = false) {
 		if (!quest) return;
 		setLoading(true);
-		const rawData = await getPiderboard(quest.range, metric, force);
+		const rawData = await getPiderboard(quest.range, quest.metric, force);
 		setData(transformPiderboardData(rawData, quest.reward));
 		setLoading(false);
 	}
 
 	useEffect(() => {
 		checkPiderboard();
-	}, [quest, metric]);
+	}, [quest]);
 
 	const filteredData = useMemo(() => {
 		if (!quest) return data;
@@ -40,7 +39,7 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 				!debouncedSearch ||
 				item.alias.toLowerCase().includes(debouncedSearch.toLowerCase()),
 		);
-	}, [data, debouncedSearch, minRewardFilter, quest]);
+	}, [data, debouncedSearch, minRewardFilter]);
 
 	const stats = useMemo(() => {
 		const values = filteredData
@@ -62,8 +61,6 @@ export function usePiderboardData(initialQuest: IQuest | null) {
 		loading,
 		quest,
 		setQuest,
-		metric,
-		setMetric,
 		filteredData,
 		stats,
 		minRewardFilter,

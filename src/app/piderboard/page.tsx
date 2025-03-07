@@ -24,8 +24,6 @@ export default function Piderboard() {
 		loading,
 		quest,
 		setQuest,
-		metric,
-		setMetric,
 		filteredData,
 		stats,
 		minRewardFilter,
@@ -44,8 +42,14 @@ export default function Piderboard() {
 
 				<div className="flex flex-col sm:flex-row justify-center sm:items-center gap-4">
 					<Tabs
-						value={metric}
-						onValueChange={value => setMetric(value as 'volume' | 'pnl')}
+						value={quest?.metric || 'volume'}
+						onValueChange={value =>
+							setQuest(
+								QUESTS.find(
+									q => q.range === quest?.range && q.metric === value,
+								) || null,
+							)
+						}
 					>
 						<TabsList className="w-full sm:w-auto">
 							{['volume', 'pnl'].map(m => (
@@ -69,8 +73,9 @@ export default function Piderboard() {
 					<Select
 						onValueChange={value =>
 							setQuest(
-								QUESTS.find(q => q.range === value && q.metric === metric) ||
-									null,
+								QUESTS.find(
+									q => q.range === value && q.metric === quest?.metric,
+								) || null,
 							)
 						}
 						value={quest?.range}
@@ -81,7 +86,7 @@ export default function Piderboard() {
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								{QUESTS.filter(q => q.metric === metric).map(quest => (
+								{QUESTS.filter(q => q.metric === quest?.metric).map(quest => (
 									<SelectItem key={quest.range} value={quest.range}>
 										{quest.name}
 									</SelectItem>

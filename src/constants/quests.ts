@@ -121,4 +121,16 @@ export const QUESTS: IQuest[] = [
 		name: 'Beta Rush Day 30',
 		reward: 25000 * 0.5,
 	},
+	{
+		range: 'publicBetaTestCampaignThirtyTwo',
+		metric: 'volume',
+		name: 'Beta Rush Day 31',
+		reward: 25000 * 0.5,
+	},
+	{
+		range: 'publicBetaTestCampaignThirtyTwo',
+		metric: 'pnl',
+		name: 'Beta Rush Day 31',
+		reward: 25000 * 0.5,
+	},
 ];
