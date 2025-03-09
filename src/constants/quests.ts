@@ -191,4 +191,20 @@ export const QUESTS: IQuest[] = [
 		subname: 'Day 32',
 		reward: 25000 * 0.5,
 	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignThirtyFour',
+		metric: 'volume',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 33',
+		reward: 25000 * 0.5,
+	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignThirtyFour',
+		metric: 'pnl',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 33',
+		reward: 25000 * 0.5,
+	},
 ];
