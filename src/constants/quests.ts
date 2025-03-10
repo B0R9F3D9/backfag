@@ -133,7 +133,7 @@ export const QUESTS: IQuest[] = [
 		metric: 'volume',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 29',
-		reward: 25000 * 0.5,
+		reward: 25000 * 0.2,
 	},
 	{
 		name: 'Beta Rush',
@@ -141,7 +141,7 @@ export const QUESTS: IQuest[] = [
 		metric: 'pnl',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 29',
-		reward: 25000 * 0.5,
+		reward: 25000 * 0.8,
 	},
 	{
 		name: 'Beta Rush',
@@ -149,7 +149,7 @@ export const QUESTS: IQuest[] = [
 		metric: 'volume',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 30',
-		reward: 25000 * 0.5,
+		reward: 25000 * 0.4,
 	},
 	{
 		name: 'Beta Rush',
@@ -157,7 +157,7 @@ export const QUESTS: IQuest[] = [
 		metric: 'pnl',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 30',
-		reward: 25000 * 0.5,
+		reward: 25000 * 0.6,
 	},
 	{
 		name: 'Beta Rush',
@@ -205,6 +205,22 @@ export const QUESTS: IQuest[] = [
 		metric: 'pnl',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 33',
+		reward: 25000 * 0.5,
+	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignThirtyFive',
+		metric: 'volume',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 34',
+		reward: 25000 * 0.5,
+	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignThirtyFive',
+		metric: 'pnl',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 34',
 		reward: 25000 * 0.5,
 	},
 ];
