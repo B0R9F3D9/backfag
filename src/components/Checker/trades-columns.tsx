@@ -158,12 +158,19 @@ export const TRADES_COLUMNS: ColumnDef<ICheckerStats['trades'][number]>[] = [
 		),
 		cell: ({ row }) => {
 			const timestamp = row.getValue<string>('timestamp');
+			const utcDate = new Date(timestamp);
+			const localDate = new Date(
+				utcDate.getTime() - utcDate.getTimezoneOffset() * 60000,
+			);
+
 			return (
 				<ColumnItem>
 					<div className="group relative">
-						{format(new Date(timestamp), 'PPpp')}
+						<span className="cursor-help">
+							{formatDistanceToNow(localDate, { addSuffix: true })}
+						</span>
 						<span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
-							{formatDistanceToNow(new Date(timestamp), { addSuffix: true })}
+							{format(localDate, 'MMM d, hh:mm a')}
 						</span>
 					</div>
 				</ColumnItem>

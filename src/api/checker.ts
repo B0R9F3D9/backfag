@@ -71,7 +71,7 @@ export async function getFillHistory(
 		result.unshift(...fillHistory);
 
 		await db.update(cacheKey, {
-			trades: fillHistory,
+			trades: result,
 			id: cacheKey,
 		});
 
