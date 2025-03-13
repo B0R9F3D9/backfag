@@ -106,24 +106,20 @@ export default function Checker() {
 									{format(dateRange?.from, 'LLL dd, y')} -{' '}
 									{format(dateRange?.to, 'LLL dd, y')}
 								</>
-							) : dateRange === undefined ? (
-								<span>All Time</span>
 							) : (
-								<span>Pick a date</span>
+								<span>All Time</span>
 							)}
 						</Button>
 					</PopoverTrigger>
 					<PopoverContent className="flex w-auto flex-col gap-2 p-2">
 						<Select
 							onValueChange={value => {
-								if (value === 'all') {
-									setDateRange(undefined);
-								} else {
+								if (value === 'all') setDateRange(undefined);
+								else
 									setDateRange({
 										from: subDays(new Date(), parseInt(value)),
 										to: new Date(),
 									});
-								}
 							}}
 						>
 							<SelectTrigger>

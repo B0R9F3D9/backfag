@@ -13,24 +13,20 @@ export function useCheckerData() {
 
 	async function checkData() {
 		if (!apiKey) return;
-
 		setLoading(true);
 
 		try {
 			let fillHistory = await getFillHistory(apiKey, marketType);
 
 			if (dateRange) {
-				const from = dateRange.from;
-				let to = dateRange.to;
-
+				const { from, to } = dateRange;
 				if (from && to) {
-					if (from.getTime() === to.getTime()) {
-						to = new Date(to.getTime() + 24 * 60 * 60 * 1000);
-					}
+					from.setHours(0, 0, 0, 0);
+					to.setHours(23, 59, 59, 999);
 
 					fillHistory = fillHistory.filter(item => {
 						const date = new Date(item.timestamp);
-						return date >= from && (to ? date <= to : true);
+						return date >= from && date <= to;
 					});
 				}
 			}
