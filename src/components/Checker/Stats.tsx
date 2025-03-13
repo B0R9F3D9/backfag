@@ -1,5 +1,4 @@
 import { Loader2 } from 'lucide-react';
-import { twMerge } from 'tailwind-merge';
 
 import { formatCurrency } from '@/lib/utils';
 import type { ICheckerStats } from '@/types/checker';
@@ -41,12 +40,7 @@ export function CheckerStats({
 	];
 
 	return (
-		<div
-			className={twMerge(
-				`sm:grid-cols-${STATS.length}`,
-				'grid grid-cols-1 gap-4 p-4 rounded-lg shadow-md dark:border',
-			)}
-		>
+		<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-lg shadow-md dark:border">
 			{STATS.map(stat => (
 				<div key={stat.label} className="text-center">
 					<p className="text-sm">{stat.label}</p>
