@@ -3,6 +3,7 @@
 import { LuRefreshCcw } from 'react-icons/lu';
 
 import { DataTable } from '@/components/DataTable';
+import { COLUMNS } from '@/components/Piderboard/columns';
 import { PiderboardFilters } from '@/components/Piderboard/Filters';
 import { PiderboardStats } from '@/components/Piderboard/Stats';
 import { Button } from '@/components/ui/button';
@@ -155,7 +156,7 @@ export default function Piderboard() {
 					loading={loading}
 				/>
 
-				<DataTable data={filteredData} loading={loading} />
+				<DataTable data={filteredData} columns={COLUMNS} loading={loading} />
 			</div>
 		</main>
 	);

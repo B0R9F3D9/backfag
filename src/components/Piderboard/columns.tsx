@@ -13,7 +13,7 @@ function ColumnItem({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export const columns: ColumnDef<IPiderboard>[] = [
+export const COLUMNS: ColumnDef<IPiderboard>[] = [
 	{
 		accessorKey: 'rank',
 		header: ({ column }) => (

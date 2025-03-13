@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { NAVIGATION } from '@/constants/navigation';
 import { Button } from '@/ui/button';
 import {
 	DropdownMenu,
@@ -15,12 +16,6 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/ui/dropdown-menu';
-
-const navLinks = [
-	{ href: '/checker', label: 'Checker', boldPart: '' },
-	{ href: '/piderboard', label: 'Piderboard', boldPart: 'Pider' },
-	{ href: '/analytics', label: 'Analytics', boldPart: 'Anal' },
-];
 
 export default function Header() {
 	const { setTheme } = useTheme();
@@ -57,20 +52,28 @@ export default function Header() {
 			</Link>
 
 			<nav className="hidden sm:flex gap-4 absolute left-1/2 -translate-x-1/2">
-				{navLinks.map(link => (
-					<Link
-						key={link.href}
-						href={link.href}
-						className={twMerge(
-							'text-lg font-medium transition-colors',
-							pathname === link.href ? 'text-red-400' : 'hover:text-red-400',
+				{NAVIGATION.map(link => (
+					<div key={link.href} className="relative inline-block">
+						<Link
+							href={link.href}
+							className={twMerge(
+								'text-lg font-medium transition-colors relative z-10',
+								pathname === link.href ? 'text-red-400' : 'hover:text-red-400',
+								link.disabled &&
+									'opacity-50 cursor-not-allowed pointer-events-none',
+							)}
+						>
+							<span className={link.boldPart ? 'font-bold' : ''}>
+								{link.boldPart}
+							</span>
+							<span>{link.label.replace(link.boldPart, '')}</span>
+						</Link>
+						{link.disabled && (
+							<span className="absolute -top-2 -right-6 bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-semibold px-2 py-0.5 rounded transform rotate-12 z-20 shadow-md">
+								Soon
+							</span>
 						)}
-					>
-						<span className={link.boldPart ? 'font-bold' : ''}>
-							{link.boldPart}
-						</span>
-						<span>{link.label.replace(link.boldPart, '')}</span>
-					</Link>
+					</div>
 				))}
 			</nav>
 
@@ -106,21 +109,31 @@ export default function Header() {
 				)}
 			>
 				<div className="flex items-center justify-between">
-					{navLinks.map(link => (
-						<Link
-							key={link.href}
-							href={link.href}
-							className={twMerge(
-								'text-lg font-medium transition-colors',
-								pathname === link.href ? 'text-red-400' : 'hover:text-red-400',
+					{NAVIGATION.map(link => (
+						<div key={link.href} className="relative inline-block">
+							<Link
+								href={link.href}
+								className={twMerge(
+									'text-lg font-medium transition-colors relative z-10',
+									pathname === link.href
+										? 'text-red-400'
+										: 'hover:text-red-400',
+									link.disabled &&
+										'opacity-50 cursor-not-allowed pointer-events-none',
+								)}
+								onClick={() => setIsMobileMenuOpen(false)}
+							>
+								<span className={link.boldPart ? 'font-bold' : ''}>
+									{link.boldPart}
+								</span>
+								<span>{link.label.replace(link.boldPart, '')}</span>
+							</Link>
+							{link.disabled && (
+								<span className="absolute -top-2 -right-6 bg-gradient-to-r from-red-500 to-rose-600 text-white text-xs font-semibold px-2 py-0.5 rounded transform rotate-12 z-20 shadow-md">
+									Soon
+								</span>
 							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							<span className={link.boldPart ? 'font-bold' : ''}>
-								{link.boldPart}
-							</span>
-							<span>{link.label.replace(link.boldPart, '')}</span>
-						</Link>
+						</div>
 					))}
 				</div>
 			</nav>

@@ -24,15 +24,19 @@ import {
 	TableRow,
 } from '@/ui/table';
 
-import { columns } from './columns';
 import { DataTablePagination } from './Pagination';
 
 interface DataTableProps<TData> {
 	data: TData[];
+	columns: ColumnDef<TData>[];
 	loading: boolean;
 }
 
-export function DataTable<TData>({ data, loading }: DataTableProps<TData>) {
+export function DataTable<TData>({
+	data,
+	columns,
+	loading,
+}: DataTableProps<TData>) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
@@ -106,7 +110,7 @@ export function DataTable<TData>({ data, loading }: DataTableProps<TData>) {
 					</TableBody>
 				</Table>
 			</div>
-			<DataTablePagination table={table} />
+			{table.getPageCount() > 1 && <DataTablePagination table={table} />}
 		</div>
 	);
 }

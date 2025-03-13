@@ -4,9 +4,23 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { getPiderboard } from '@/api/piderboard';
 import { useDebounce } from '@/hooks/useDebounce';
-import { transformPiderboardData } from '@/lib/utils';
 import type { IPiderboard } from '@/types/piderboard';
 import type { IQuest } from '@/types/quest';
+
+function transformPiderboardData(
+	data: IPiderboard[],
+	rewardPool: number,
+): IPiderboard[] {
+	const totalValue = data.reduce((acc, item) => acc + Math.abs(item.value), 0);
+
+	return data
+		.map(item => ({
+			...item,
+			percent: (Math.abs(item.value) / totalValue) * 100,
+			reward: (Math.abs(item.value) / totalValue) * rewardPool,
+		}))
+		.sort((a, b) => a.rank - b.rank);
+}
 
 export function usePiderboardData() {
 	const [loading, setLoading] = useState(false);
