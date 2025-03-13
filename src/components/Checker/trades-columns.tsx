@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import type { FillHistory } from 'backpack-sdk';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react';
 import * as React from 'react';
 
@@ -169,8 +169,11 @@ export const TRADES_COLUMNS: ColumnDef<ICheckerStats['trades'][number]>[] = [
 						<span className="cursor-help">
 							{formatDistanceToNow(localDate, { addSuffix: true })}
 						</span>
-						<span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
-							{format(localDate, 'MMM d, hh:mm a')}
+						<span
+							className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden
+							group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2"
+						>
+							{localDate.toLocaleString('en-UK')}
 						</span>
 					</div>
 				</ColumnItem>

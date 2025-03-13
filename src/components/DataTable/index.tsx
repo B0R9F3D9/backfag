@@ -56,8 +56,8 @@ export function DataTable<TData>({
 
 	return (
 		<div className="flex flex-col gap-4 justify-center items-center">
-			<div className="dark:border shadow-md rounded-md overflow-x-auto min-w-[40vw] md:w-full max-w-full resize-x">
-				<Table>
+			<div className="dark:border shadow-md rounded-md overflow-x-auto min-w-[25vw] md:w-full max-w-full resize-x">
+				<Table className="w-full">
 					<TableHeader>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>

@@ -16,20 +16,24 @@ interface CheckerStatsProps extends ICheckerStats {
 export function CheckerStats({
 	volume,
 	feeLoss,
+	slippageLoss,
 	trades,
 	loading,
 }: CheckerStatsProps) {
 	const STATS: IStat[] = [
 		{
 			label: 'Volume',
-			value: volume
-				.map(item => item.amount)
-				.reduce((acc, item) => acc + item, 0),
+			value: volume,
 			formatFunc: formatCurrency,
 		},
 		{
 			label: 'Loss on fee',
 			value: feeLoss,
+			formatFunc: formatCurrency,
+		},
+		{
+			label: 'Loss on slippage',
+			value: slippageLoss,
 			formatFunc: formatCurrency,
 		},
 		{
@@ -40,7 +44,7 @@ export function CheckerStats({
 	];
 
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-lg shadow-md dark:border">
+		<div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 rounded-lg shadow-md dark:border">
 			{STATS.map(stat => (
 				<div key={stat.label} className="text-center">
 					<p className="text-sm">{stat.label}</p>

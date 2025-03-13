@@ -1,31 +1,17 @@
 'use client';
 
-import { format, subDays } from 'date-fns';
-import { CalendarIcon, Clipboard, Loader2 } from 'lucide-react';
+import { Clipboard, Loader2, Trash } from 'lucide-react';
 import React from 'react';
 
+import { DateTimePicker } from '@/components/Checker/DateTimePicker';
+import { PAIRS_COLUMNS } from '@/components/Checker/pairs-columns';
 import { CheckerStats } from '@/components/Checker/Stats';
 import { TRADES_COLUMNS } from '@/components/Checker/trades-columns';
-import { VOLUME_COLUMNS } from '@/components/Checker/volume-columns';
 import { DataTable } from '@/components/DataTable';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useCheckerData } from '@/hooks/useCheckerData';
-import { cn } from '@/lib/utils';
+import { formatDateRange, useCheckerData } from '@/hooks/useCheckerData';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs';
 
 export default function Checker() {
 	const {
@@ -35,6 +21,8 @@ export default function Checker() {
 		setMarketType,
 		dateRange,
 		setDateRange,
+		timeRange,
+		setTimeRange,
 		stats,
 		loading,
 		checkData,
@@ -42,25 +30,19 @@ export default function Checker() {
 
 	return (
 		<main className="p-6 flex justify-center">
-			<div
-				className="w-full max-w-4xl rounded-xl shadow-xl p-6
-					flex flex-col justify-center gap-6 dark:border dark:border-gray-700"
-			>
+			<div className="w-full max-w-4xl rounded-xl shadow-xl p-6 flex flex-col gap-6 dark:border dark:border-gray-700">
 				<h1 className="text-2xl mx-auto font-medium">Checker</h1>
 
 				<div className="flex items-center gap-1 w-full sm:w-64 mx-auto">
 					<Input
-						className="rounded-lg"
-						placeholder="Paste your API key here"
+						placeholder="Paste your API key"
 						value={apiKey.replace(/./g, '*')}
 						onChange={e => setApiKey(e.target.value)}
 						disabled={loading}
 					/>
 					<Button
 						variant="outline"
-						onClick={() =>
-							navigator.clipboard.readText().then(text => setApiKey(text))
-						}
+						onClick={() => navigator.clipboard.readText().then(setApiKey)}
 						disabled={loading}
 					>
 						<Clipboard className="h-4 w-4" />
@@ -69,110 +51,67 @@ export default function Checker() {
 
 				<Tabs
 					value={marketType}
-					onValueChange={value => setMarketType(value as 'SPOT' | 'PERP')}
+					onValueChange={v => setMarketType(v as 'SPOT' | 'PERP')}
 				>
-					<TabsList className="flex items-center gap-1 w-full sm:w-64 mx-auto">
-						<TabsTrigger
-							className="cursor-pointer"
-							disabled={loading}
-							value="SPOT"
-						>
-							Spot Only
+					<TabsList className="w-full sm:w-64 mx-auto">
+						<TabsTrigger value="SPOT" disabled={loading}>
+							Spot
 						</TabsTrigger>
-						<TabsTrigger
-							className="cursor-pointer"
-							disabled={loading}
-							value="PERP"
-						>
-							Perps Only
+						<TabsTrigger value="PERP" disabled={loading}>
+							Perps
 						</TabsTrigger>
 					</TabsList>
 				</Tabs>
 
-				<Popover>
-					<PopoverTrigger asChild>
-						<Button
-							id="date"
-							variant="outline"
-							disabled={loading}
-							className={cn(
-								'w-full sm:w-64 rounded-lg text-left font-normal justify-start mx-auto',
-								!dateRange && 'text-muted-foreground',
-							)}
-						>
-							<CalendarIcon />
-							{dateRange?.from && dateRange?.to ? (
-								<>
-									{format(dateRange?.from, 'LLL dd, y')} -{' '}
-									{format(dateRange?.to, 'LLL dd, y')}
-								</>
-							) : (
-								<span>All Time</span>
-							)}
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent className="flex w-auto flex-col gap-2 p-2">
-						<Select
-							onValueChange={value => {
-								if (value === 'all') setDateRange(undefined);
-								else
-									setDateRange({
-										from: subDays(new Date(), parseInt(value)),
-										to: new Date(),
-									});
-							}}
-						>
-							<SelectTrigger>
-								<SelectValue placeholder="Select a date" />
-							</SelectTrigger>
-							<SelectContent position="popper">
-								<SelectItem value="0">Today</SelectItem>
-								<SelectItem value="1">Yesterday to now</SelectItem>
-								<SelectItem value="7">A week ago to now</SelectItem>
-								<SelectItem value="30">A month ago to now</SelectItem>
-								<SelectItem value="all">All Time</SelectItem>
-							</SelectContent>
-						</Select>
-						<Calendar
-							className="rounded-md border"
-							mode="range"
-							defaultMonth={dateRange?.from}
-							selected={dateRange}
-							onSelect={setDateRange}
+				<DateTimePicker
+					dateRange={dateRange}
+					setDateRange={setDateRange}
+					timeRange={timeRange}
+					setTimeRange={setTimeRange}
+					disabled={loading}
+					displayText={formatDateRange(dateRange)}
+				/>
+
+				<div className="flex gap-2 sm:w-64 w-full mx-auto">
+					<Button
+						className="flex-grow text-lg font-medium"
+						onClick={checkData}
+						disabled={loading || !apiKey}
+					>
+						{loading ? (
+							<div className="flex items-center gap-2">
+								<Loader2 className="animate-spin mx-auto" />
+								<span>Checking...</span>
+							</div>
+						) : (
+							'Check'
+						)}
+					</Button>
+					<Button
+						className="flex items-center gap-1"
+						variant="destructive"
+						size="icon"
+						onClick={() => indexedDB.deleteDatabase('checker')}
+						disabled={loading}
+					>
+						<Trash className="h-4 w-4" />
+					</Button>
+				</div>
+
+				{stats && (
+					<>
+						<CheckerStats {...stats} loading={loading} />
+						<DataTable
+							data={stats.pairs}
+							columns={PAIRS_COLUMNS}
+							loading={loading}
 						/>
-					</PopoverContent>
-				</Popover>
-
-				<Button
-					className="w-full sm:w-64 text-lg font-medium mx-auto"
-					variant="outline"
-					onClick={checkData}
-					disabled={loading || !apiKey}
-				>
-					{loading ? (
-						<>
-							<Loader2 className="animate-spin mr-2" />
-							Checking...
-						</>
-					) : (
-						'Check'
-					)}
-				</Button>
-
-				{stats && <CheckerStats {...stats} loading={loading} />}
-				{stats && (
-					<DataTable
-						data={stats.volume}
-						columns={VOLUME_COLUMNS}
-						loading={loading}
-					/>
-				)}
-				{stats && (
-					<DataTable
-						data={stats.trades}
-						columns={TRADES_COLUMNS}
-						loading={loading}
-					/>
+						<DataTable
+							data={stats.trades}
+							columns={TRADES_COLUMNS}
+							loading={loading}
+						/>
+					</>
 				)}
 			</div>
 		</main>
