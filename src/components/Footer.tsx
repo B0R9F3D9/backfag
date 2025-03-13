@@ -11,6 +11,13 @@ export default function Footer() {
 					<FaGithub />
 				</Button>
 			</a>
+			<a
+				className="hover:text-rose-400 text-sm"
+				href="https://github.com/b0r9f3d9"
+				target="_blank"
+			>
+				Made with ❤️ by b0r9f3d9
+			</a>
 			<a href="https://twitter.com/b0r9f3d9" target="_blank">
 				<Button className="cursor-pointer" variant="outline" size="icon">
 					<FaTwitter />
