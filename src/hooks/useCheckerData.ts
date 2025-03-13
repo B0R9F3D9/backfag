@@ -130,7 +130,6 @@ export function useCheckerData() {
 					.map(Number);
 				dateRange.from.setHours(startHour, startMinute, 0, 0);
 				dateRange.to.setHours(endHour, endMinute, 59, 999);
-				console.log(dateRange.from, dateRange.to);
 				fillHistory = fillHistory.filter(item => {
 					const date = new Date(item.timestamp);
 					return date >= dateRange.from! && date <= dateRange.to!;
