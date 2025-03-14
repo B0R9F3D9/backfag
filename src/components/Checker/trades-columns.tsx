@@ -103,7 +103,7 @@ export const TRADES_COLUMNS: ColumnDef<ICheckerStats['trades'][number]>[] = [
 		),
 		cell: ({ row }) => (
 			<ColumnItem>
-				{formatCurrency(row.getValue<number>('quantity'))}
+				{formatCurrency(parseFloat(row.getValue<string>('quantity')))}
 			</ColumnItem>
 		),
 	},
