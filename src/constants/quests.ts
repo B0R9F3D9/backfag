@@ -317,7 +317,7 @@ export const QUESTS: IQuest[] = [
 	},
 	{
 		name: 'Beta Rush',
-		range: 'publicBetaTestCampaignFourty',
+		range: 'publicBetaTestCampaignForty',
 		metric: 'volume',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 39',
@@ -325,7 +325,7 @@ export const QUESTS: IQuest[] = [
 	},
 	{
 		name: 'Beta Rush',
-		range: 'publicBetaTestCampaignFourty',
+		range: 'publicBetaTestCampaignForty',
 		metric: 'pnl',
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 39',
