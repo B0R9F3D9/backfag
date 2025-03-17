@@ -17,6 +17,21 @@ export const DATE_RANGES = [
 	{ label: 'Last Week', from: subDays(new Date(), 7), to: new Date() },
 	{ label: 'Last Month', from: subDays(new Date(), 30), to: new Date() },
 	{ label: 'All Time', from: undefined, to: undefined },
+	{
+		label: 'Beta Rush Day 39',
+		from: new Date(1742004000000),
+		to: new Date(1742090400000),
+	},
+	{
+		label: 'Beta Rush Day 40',
+		from: new Date(1742090400000),
+		to: new Date(1742176800000),
+	},
+	{
+		label: 'Beta Rush Day 41',
+		from: new Date(1742176800000),
+		to: new Date(1742263200000),
+	},
 ];
 
 export function formatDateRange(dateRange: DateRange | undefined): string {
