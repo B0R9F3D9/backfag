@@ -5,4 +5,6 @@ export interface IQuest {
 	name: string;
 	subname?: string;
 	reward: number;
+	startDate: Date;
+	endDate: Date;
 }

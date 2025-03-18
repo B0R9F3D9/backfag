@@ -1,43 +1,12 @@
 import type { FillHistory } from 'backpack-sdk';
-import { addDays, subDays } from 'date-fns';
 import { useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 
 import { getFillHistory } from '@/api/checker';
 import type { ICheckerStats } from '@/types/checker';
 
-export const TIME_RANGES = [
-	{ label: '00:00 - 23:59', value: '0-0-23-59' },
-	{ label: '02:00 - 01:59', value: '2-0-1-59' },
-];
-
-export const DATE_RANGES = [
-	{ label: 'Today', from: new Date(), to: addDays(new Date(), 1) },
-	{ label: 'Yesterday', from: subDays(new Date(), 1), to: new Date() },
-	{ label: 'Last Week', from: subDays(new Date(), 7), to: new Date() },
-	{ label: 'Last Month', from: subDays(new Date(), 30), to: new Date() },
-	{ label: 'All Time', from: undefined, to: undefined },
-	{
-		label: 'Beta Rush Day 39',
-		from: new Date(1742004000000),
-		to: new Date(1742090400000),
-	},
-	{
-		label: 'Beta Rush Day 40',
-		from: new Date(1742090400000),
-		to: new Date(1742176800000),
-	},
-	{
-		label: 'Beta Rush Day 41',
-		from: new Date(1742176800000),
-		to: new Date(1742263200000),
-	},
-];
-
 export function formatDateRange(dateRange: DateRange | undefined): string {
-	if (!dateRange?.from || !dateRange?.to) {
-		return 'All Time';
-	}
+	if (!dateRange?.from || !dateRange?.to) return 'All Time';
 	const from = dateRange.from.toLocaleDateString('en-US', {
 		month: 'short',
 		day: 'numeric',
@@ -64,10 +33,7 @@ function processTradeStats(fillHistory: FillHistory[]): ICheckerStats {
 		const parsedQty = parseFloat(quantity);
 		const parsedFee = parseFloat(fee);
 
-		if (!tradeMap.has(symbol)) {
-			tradeMap.set(symbol, { buys: [], sells: [] });
-		}
-
+		if (!tradeMap.has(symbol)) tradeMap.set(symbol, { buys: [], sells: [] });
 		const tradeData = tradeMap.get(symbol)!;
 		const tradeEntry = { price: parsedPrice, quantity: parsedQty };
 		if (side === 'Bid') tradeData.buys.push(tradeEntry);
@@ -125,10 +91,7 @@ function processTradeStats(fillHistory: FillHistory[]): ICheckerStats {
 export function useCheckerData() {
 	const [apiKey, setApiKey] = useState('');
 	const [marketType, setMarketType] = useState<'SPOT' | 'PERP'>('SPOT');
-	const [dateRange, setDateRange] = useState<DateRange | undefined>(
-		DATE_RANGES[0],
-	);
-	const [timeRange, setTimeRange] = useState(TIME_RANGES[1].value);
+	const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
 	const [stats, setStats] = useState<ICheckerStats | null>(null);
 	const [loading, setLoading] = useState(false);
 
@@ -138,13 +101,7 @@ export function useCheckerData() {
 
 		try {
 			let fillHistory = await getFillHistory(apiKey, marketType);
-
 			if (dateRange && dateRange.from && dateRange.to) {
-				const [startHour, startMinute, endHour, endMinute] = timeRange
-					.split('-')
-					.map(Number);
-				dateRange.from.setHours(startHour, startMinute, 0, 0);
-				dateRange.to.setHours(endHour, endMinute, 59, 999);
 				fillHistory = fillHistory.filter(item => {
 					const date = new Date(item.timestamp);
 					return date >= dateRange.from! && date <= dateRange.to!;
@@ -167,8 +124,6 @@ export function useCheckerData() {
 		setMarketType,
 		dateRange,
 		setDateRange,
-		timeRange,
-		setTimeRange,
 		stats,
 		loading,
 		checkData,

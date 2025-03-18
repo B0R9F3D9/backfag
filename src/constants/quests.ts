@@ -1,3 +1,5 @@
+import { subDays } from 'date-fns';
+
 import type { IQuest } from '@/types/quest';
 
 export const QUESTS: IQuest[] = [
@@ -7,6 +9,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Daily',
 		reward: 10000,
+		startDate: subDays(new Date(), 1),
+		endDate: new Date(),
 	},
 	{
 		range: 'day',
@@ -14,6 +18,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Daily',
 		reward: 10000,
+		startDate: subDays(new Date(), 1),
+		endDate: new Date(),
 	},
 	{
 		range: 'week',
@@ -21,6 +27,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Weekly',
 		reward: 10000,
+		startDate: subDays(new Date(), 7),
+		endDate: new Date(),
 	},
 	{
 		range: 'week',
@@ -28,6 +36,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Weekly',
 		reward: 10000,
+		startDate: subDays(new Date(), 7),
+		endDate: new Date(),
 	},
 	{
 		range: 'month',
@@ -35,6 +45,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Monthly',
 		reward: 10000,
+		startDate: subDays(new Date(), 30),
+		endDate: new Date(),
 	},
 	{
 		range: 'month',
@@ -42,6 +54,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		name: 'Monthly',
 		reward: 10000,
+		startDate: subDays(new Date(), 30),
+		endDate: new Date(),
 	},
 	{
 		name: 'Beta Rush',
@@ -50,6 +64,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 22',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740535200000),
+		endDate: new Date(1740621600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -58,6 +74,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 22',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740535200000),
+		endDate: new Date(1740621600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -66,6 +84,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 23',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740621600000),
+		endDate: new Date(1740708000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -74,6 +94,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 23',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740621600000),
+		endDate: new Date(1740708000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -82,6 +104,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 24',
 		reward: 25000 * 0.6,
+		startDate: new Date(1740708000000),
+		endDate: new Date(1740794400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -90,6 +114,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 24',
 		reward: 25000 * 0.4,
+		startDate: new Date(1740708000000),
+		endDate: new Date(1740794400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -98,6 +124,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 25',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740794400000),
+		endDate: new Date(1740880800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -106,6 +134,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 25',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740794400000),
+		endDate: new Date(1740880800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -114,6 +144,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 26',
 		reward: 25000 * 0.6,
+		startDate: new Date(1740880800000),
+		endDate: new Date(1740967200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -122,6 +154,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 26',
 		reward: 25000 * 0.4,
+		startDate: new Date(1740880800000),
+		endDate: new Date(1740967200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -130,6 +164,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 27',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740967200000),
+		endDate: new Date(1741053600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -138,6 +174,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 27',
 		reward: 25000 * 0.5,
+		startDate: new Date(1740967200000),
+		endDate: new Date(1741053600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -146,6 +184,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 28',
 		reward: 25000 * 0.5,
+		startDate: new Date(1741053600000),
+		endDate: new Date(1741140000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -154,6 +194,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 28',
 		reward: 25000 * 0.5,
+		startDate: new Date(1741053600000),
+		endDate: new Date(1741140000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -162,6 +204,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 29',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741140000000),
+		endDate: new Date(1741226400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -170,6 +214,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 29',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741140000000),
+		endDate: new Date(1741226400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -178,6 +224,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 30',
 		reward: 25000 * 0.4,
+		startDate: new Date(1741226400000),
+		endDate: new Date(1741312800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -186,6 +234,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 30',
 		reward: 25000 * 0.6,
+		startDate: new Date(1741226400000),
+		endDate: new Date(1741312800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -194,6 +244,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 31',
 		reward: 25000 * 0.5,
+		startDate: new Date(1741312800000),
+		endDate: new Date(1741399200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -202,6 +254,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 31',
 		reward: 25000 * 0.5,
+		startDate: new Date(1741312800000),
+		endDate: new Date(1741399200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -210,6 +264,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 32',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741399200000),
+		endDate: new Date(1741485600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -218,6 +274,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 32',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741399200000),
+		endDate: new Date(1741485600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -226,6 +284,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 33',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741485600000),
+		endDate: new Date(1741572000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -234,6 +294,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 33',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741485600000),
+		endDate: new Date(1741572000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -242,6 +304,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 34',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741572000000),
+		endDate: new Date(1741658400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -250,6 +314,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 34',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741572000000),
+		endDate: new Date(1741658400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -258,6 +324,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 35',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741658400000),
+		endDate: new Date(1741744800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -266,6 +334,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 35',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741658400000),
+		endDate: new Date(1741744800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -274,6 +344,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 36',
 		reward: 25000 * 0.2,
+		startDate: new Date(1741744800000),
+		endDate: new Date(1741831200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -282,6 +354,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 36',
 		reward: 25000 * 0.8,
+		startDate: new Date(1741744800000),
+		endDate: new Date(1741831200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -290,6 +364,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 37',
 		reward: 25000 * 0.4,
+		startDate: new Date(1741831200000),
+		endDate: new Date(1741917600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -298,6 +374,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 37',
 		reward: 25000 * 0.6,
+		startDate: new Date(1741831200000),
+		endDate: new Date(1741917600000),
 	},
 	{
 		name: 'Beta Rush',
@@ -306,6 +384,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 38',
 		reward: 25000 * 0.4,
+		startDate: new Date(1741917600000),
+		endDate: new Date(1742004000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -314,6 +394,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 38',
 		reward: 25000 * 0.6,
+		startDate: new Date(1741917600000),
+		endDate: new Date(1742004000000),
 	},
 	{
 		name: 'Beta Rush',
@@ -322,6 +404,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 39',
 		reward: 25000 * 0.8,
+		startDate: new Date(1742004000000),
+		endDate: new Date(1742090400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -330,6 +414,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 39',
 		reward: 25000 * 0.2,
+		startDate: new Date(1742004000000),
+		endDate: new Date(1742090400000),
 	},
 	{
 		name: 'Beta Rush',
@@ -338,6 +424,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 40',
 		reward: 25000 * 0.5,
+		startDate: new Date(1742090400000),
+		endDate: new Date(1742176800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -346,6 +434,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 40',
 		reward: 25000 * 0.5,
+		startDate: new Date(1742090400000),
+		endDate: new Date(1742176800000),
 	},
 	{
 		name: 'Beta Rush',
@@ -354,6 +444,8 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 41',
 		reward: 25000 * 0.5,
+		startDate: new Date(1742176800000),
+		endDate: new Date(1742263200000),
 	},
 	{
 		name: 'Beta Rush',
@@ -362,5 +454,27 @@ export const QUESTS: IQuest[] = [
 		metrics: ['volume', 'pnl'],
 		subname: 'Day 41',
 		reward: 25000 * 0.5,
+		startDate: new Date(1742176800000),
+		endDate: new Date(1742263200000),
+	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignFortyThree',
+		metric: 'volume',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 42',
+		reward: 25000 * 0.5,
+		startDate: new Date(1742263200000),
+		endDate: new Date(1742349600000),
+	},
+	{
+		name: 'Beta Rush',
+		range: 'publicBetaTestCampaignFortyThree',
+		metric: 'pnl',
+		metrics: ['volume', 'pnl'],
+		subname: 'Day 42',
+		reward: 25000 * 0.5,
+		startDate: new Date(1742263200000),
+		endDate: new Date(1742349600000),
 	},
 ];

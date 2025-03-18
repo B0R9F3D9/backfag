@@ -8,7 +8,7 @@ import { PAIRS_COLUMNS } from '@/components/Checker/pairs-columns';
 import { CheckerStats } from '@/components/Checker/Stats';
 import { TRADES_COLUMNS } from '@/components/Checker/trades-columns';
 import { DataTable } from '@/components/DataTable';
-import { formatDateRange, useCheckerData } from '@/hooks/useCheckerData';
+import { useCheckerData } from '@/hooks/useCheckerData';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs';
@@ -21,8 +21,6 @@ export default function Checker() {
 		setMarketType,
 		dateRange,
 		setDateRange,
-		timeRange,
-		setTimeRange,
 		stats,
 		loading,
 		checkData,
@@ -66,10 +64,7 @@ export default function Checker() {
 				<DateTimePicker
 					dateRange={dateRange}
 					setDateRange={setDateRange}
-					timeRange={timeRange}
-					setTimeRange={setTimeRange}
 					disabled={loading}
-					displayText={formatDateRange(dateRange)}
 				/>
 
 				<div className="flex gap-2 sm:w-64 w-full mx-auto">
