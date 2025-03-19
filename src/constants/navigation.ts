@@ -14,6 +14,13 @@ export const NAVIGATION = [
 		disabled: false,
 	},
 	{
+		href: '/chart',
+		label: 'Chart',
+		boldPart: '',
+		description: 'Observe the price of tokens',
+		disabled: true,
+	},
+	{
 		href: '/analytics',
 		label: 'Analytics',
 		boldPart: 'Anal',
