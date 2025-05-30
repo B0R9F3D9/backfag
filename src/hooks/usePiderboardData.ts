@@ -26,7 +26,7 @@ export function usePiderboardData() {
 	const [loading, setLoading] = useState(false);
 	const [quest, setQuest] = useState<IQuest | null>(null);
 	const [data, setData] = useState<IPiderboard[]>([]);
-	const [minRewardFilter, setMinRewardFilter] = useState(true);
+	const [onlyWinnersFilter, setOnlyWinnersFilter] = useState(true);
 	const [search, setSearch] = useState('');
 	const debouncedSearch = useDebounce(search, 333);
 
@@ -45,7 +45,10 @@ export function usePiderboardData() {
 	const filteredData = useMemo(() => {
 		if (!quest) return data;
 		const result = transformPiderboardData(
-			data.filter(item => !minRewardFilter || item.reward > 1),
+			data.filter(
+				item =>
+					!onlyWinnersFilter || (quest.winners && item.rank <= quest.winners),
+			),
 			quest.reward,
 		);
 		return result.filter(
@@ -53,7 +56,7 @@ export function usePiderboardData() {
 				!debouncedSearch ||
 				item.alias.toLowerCase().includes(debouncedSearch.toLowerCase()),
 		);
-	}, [data, debouncedSearch, minRewardFilter]);
+	}, [data, debouncedSearch, onlyWinnersFilter]);
 
 	const stats = useMemo(() => {
 		const values = filteredData
@@ -68,7 +71,7 @@ export function usePiderboardData() {
 			: 0;
 
 		return { total, avg, median };
-	}, [data, minRewardFilter, debouncedSearch]);
+	}, [data, onlyWinnersFilter, debouncedSearch]);
 
 	return {
 		checkPiderboard,
@@ -77,8 +80,8 @@ export function usePiderboardData() {
 		setQuest,
 		filteredData,
 		stats,
-		minRewardFilter,
-		setMinRewardFilter,
+		onlyWinnersFilter,
+		setOnlyWinnersFilter,
 		search,
 		setSearch,
 	};

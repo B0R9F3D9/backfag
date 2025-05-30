@@ -2,33 +2,37 @@ import { Checkbox } from '@/ui/checkbox';
 import { Input } from '@/ui/input';
 
 interface PiderboardFiltersProps {
-	minRewardFilter: boolean;
-	setMinRewardFilter: (value: boolean) => void;
+	isQuestHasWinners: boolean;
+	onlyWinnersFilter: boolean;
+	setOnlyWinnersFilter: (value: boolean) => void;
 	search: string;
 	setSearch: (value: string) => void;
 	loading: boolean;
 }
 
 export function PiderboardFilters({
-	minRewardFilter,
-	setMinRewardFilter,
+	isQuestHasWinners,
+	onlyWinnersFilter,
+	setOnlyWinnersFilter,
 	search,
 	setSearch,
 	loading,
 }: PiderboardFiltersProps) {
 	return (
 		<div className="flex flex-col sm:flex-row sm:justify-center gap-4">
-			<div className="flex items-center gap-2 mx-auto sm:mx-0">
-				<Checkbox
-					id="min-reward"
-					checked={minRewardFilter}
-					onCheckedChange={checked => setMinRewardFilter(!!checked)}
-					disabled={loading}
-				/>
-				<label htmlFor="min-reward" className="text-sm select-none">
-					Hide rewards {'<'} $1
-				</label>
-			</div>
+			{isQuestHasWinners && (
+				<div className="flex items-center gap-2 mx-auto sm:mx-0">
+					<Checkbox
+						id="only-winners"
+						checked={onlyWinnersFilter}
+						onCheckedChange={checked => setOnlyWinnersFilter(!!checked)}
+						disabled={loading}
+					/>
+					<label htmlFor="only-winners" className="text-sm select-none">
+						Only Winners
+					</label>
+				</div>
+			)}
 			<Input
 				className="w-full sm:w-64 rounded-lg"
 				type="search"

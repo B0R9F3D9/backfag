@@ -27,8 +27,8 @@ export default function Piderboard() {
 		setQuest,
 		filteredData,
 		stats,
-		minRewardFilter,
-		setMinRewardFilter,
+		onlyWinnersFilter,
+		setOnlyWinnersFilter,
 		search,
 		setSearch,
 	} = usePiderboardData();
@@ -141,8 +141,9 @@ export default function Piderboard() {
 				</div>
 
 				<PiderboardFilters
-					minRewardFilter={minRewardFilter}
-					setMinRewardFilter={setMinRewardFilter}
+					isQuestHasWinners={!!quest?.winners}
+					onlyWinnersFilter={onlyWinnersFilter}
+					setOnlyWinnersFilter={setOnlyWinnersFilter}
 					search={search}
 					setSearch={setSearch}
 					loading={loading}

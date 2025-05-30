@@ -4,6 +4,7 @@ export interface IQuest {
 	metrics: Array<'volume' | 'pnl'>;
 	name: string;
 	subname?: string;
+	winners?: number;
 	reward: number;
 	startDate: Date;
 	endDate: Date;

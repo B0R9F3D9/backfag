@@ -5,8 +5,8 @@ import type { PiderboardResponse } from '@/types/api';
 import type { IPiderboard } from '@/types/piderboard';
 
 async function fetchPiderboard(
-	range: string,
 	metric: 'volume' | 'pnl',
+	range: string,
 	limit = 1000,
 	offset = 0,
 	accumulator: IPiderboard[] = [],
@@ -15,12 +15,11 @@ async function fetchPiderboard(
 	if (!quest) throw new Error('Quest not found');
 
 	const response = await axios.get<PiderboardResponse>(
-		`/api/piderboard/${metric}`,
+		'/api/piderboard',
 		{
 			params: {
+				metric,
 				range,
-				mode: 'both',
-				excludeMms: true,
 				limit,
 				offset,
 			},
@@ -49,7 +48,7 @@ async function fetchPiderboard(
 	);
 
 	if (response.data.data.length < 1000) return accumulator;
-	return fetchPiderboard(range, metric, limit, offset + limit, accumulator);
+	return fetchPiderboard(metric, range, limit, offset + limit, accumulator);
 }
 
 export async function getPiderboard(
@@ -65,7 +64,7 @@ export async function getPiderboard(
 				return cachedData;
 		}
 
-		const data = await fetchPiderboard(range, metric);
+		const data = await fetchPiderboard(metric, range);
 		localStorage.setItem(
 			`${metric}-${range}`,
 			JSON.stringify({ data, timestamp: Date.now() / 1000 }),

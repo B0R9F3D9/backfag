@@ -7,11 +7,23 @@ import type { IPiderboard } from '@/types/piderboard';
 export async function GET(req: NextRequest) {
 	const params = req.nextUrl.searchParams;
 
+	const metric = params.get('metric');
+	if (!metric) throw new Error('metric is required');
+
+	const range = params.get('range');
+	if (!range) throw new Error('range is required');
+	
+	const limit = Number(params.get('limit') || 1000);
+	const offset = Number(params.get('offset') || 0);
+
 	try {
 		const resp = await axios.get<IPiderboard>(
-			'https://api.backpack.exchange/wapi/v1/statistics/pnl',
+			`https://api.backpack.exchange/wapi/v1/statistics/leaderboard/${metric}/${range}`,
 			{
-				params,
+				params: {
+					limit,
+					offset,
+				},
 				headers: {
 					Referer: 'https://backpack.exchange/',
 				},
